@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>My Home</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap4/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#lights">MyHome</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#lights">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#lights">Lights</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#temperature">Temperature</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#garage">Garage</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Lights -->
+    <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-header" id="lights">
+            Lights
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    Kitchen
+                </div>
+                <div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    leaving Room
+                </div>
+                <div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    Garage
+                </div>
+                <div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    Bedroom
+                </div>
+                <div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    Toilet
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Temperature -->
+    <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-header" id="temperature">
+            Temperature
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div>
+                    Current temperature of the house : 18 C
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Garage -->
+    <div class="card mb-3" style="max-width: 20rem;">
+        <div class="card-header" id="garage">
+            Garage door
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div>
+                    Close
+                    <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                    </label>
+                    Open
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="bootstrap4/js/bootstrap.min.js" rel="stylesheet" id="bootstrap-js"></script>
+
+    <!-- JQuery -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+</body>
+
+</html>
