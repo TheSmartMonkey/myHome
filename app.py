@@ -8,7 +8,7 @@ def index():
 
 @app.route('/bootstrap4/<path:filepath>')
 def bootstrap(filepath):
-    return send_from_directory('/home/pi/webapp/myHome/boostrap4',filepath)
+    return send_from_directory('/home/pi/webapp/myHome/bootstrap4',filepath)
 
 @app.route('/css/<path:filepath>')
 def style_css(filepath):
