@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body onload="checkTemperature()">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#lights">MyHome</a>
@@ -52,36 +52,35 @@
             <div class="container">
                 <div>
                     <label class="switch">
-                        <input type="checkbox" id="toggle-event">
+                        <input type="checkbox" id="kitchen" led="0" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
                     Kitchen
                 </div>
-                <div id="console-event"></div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="leaving-room" led="1" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
                     leaving Room
                 </div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="garage" led="2" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
                     Garage
                 </div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="bedroom" led="3" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
                     Bedroom
                 </div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="toilet" led="4" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
                     Toilet
@@ -92,14 +91,19 @@
 
     <!-- Temperature -->
     <div class="card mb-3" style="max-width: 20rem;">
-        <div class="card-header" id="temperature">
+        <div class="card-header" id="temperatureCard">
             Temperature
         </div>
         <div class="card-body">
             <div class="container">
-                <div>
-                    Current temperature of the house : 18 C
-                </div>
+                <label>
+                    humidity :
+                    <div id="humidity"></div>
+                </label><br>
+                <label>
+                    temperature :
+                    <div id="temperature"></div>
+                </label>
             </div>
         </div>
     </div>
@@ -126,9 +130,11 @@
     <!-- Bootstrap -->
     <script src="bootstrap4/js/bootstrap.min.js" rel="stylesheet" id="bootstrap-js"></script>
 
+    <!-- JQuery -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
-    <script src="sensor.js"></script>
+    <!-- Lights -->
+    <script src="js/lights.js"></script>
 
 </body>
 
