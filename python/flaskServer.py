@@ -3,41 +3,65 @@ from smbus import SMBus
 from lcd import LCD
 import struct
 
+# Address of the 2 Arduino - Adresse des 2 Arduino
+ARDUINO1_I2C_ADDRESS = 18
+ARDUINO2_I2C_ADDRESS = 19
 
 app = Flask(__name__)
-display = LCD()
+lcd = LCD()
 
 @app.route('/')
 def index():
     return send_from_directory('/home/pi/webapp/myHome','index.html')
 
 
-# Capteur - Sensors
+# Sensors - Capteurs
 @app.route('/message/<msg1>/<msg2>')
 def display_message(msg1,msg2):
-    display.displayText(msg1,msg2)
+    lcd.displayText(msg1,msg2)
     return msg1 + " " + msg2 + " message displayed"
 
 @app.route('/setLight/<led>/<onoff>')
 def set_light(led,onoff):
     bus = SMBus(1)
-    bus.write_i2c_block_data(18, ord('L'), [ord(led), ord('O' if onoff == "on" else  'F')])
+    bus.write_i2c_block_data(ARDUINO1_I2C_ADDRESS, ord('L'), [ord(led), ord('O' if onoff == "on" else 'F')])
     bus.close()
-    return "light %s is set to %s"%(led, onoff)
+    return "light %s is set to %s" % (led, onoff)
 
-@app.route('/getTemperature')
-def get_humidity_temperature():
-    "get the humidity and the tempetature by calling the arduino by I2C"
+@app.route('/setGarageDoor/<closeopen>')
+def set_garage_door(closeopen):
     bus = SMBus(1)
-    data = bus.read_i2c_block_data(18,0)
-    humidity, temperature = struct.unpack("ff", struct.pack("B"*8,*data[0:8]))
-    return jsonify({"humidity":humidity,"temperature":temperature})
+    bus.write_i2c_block_data(ARDUINO2_I2C_ADDRESS, ord('D'), [ord('O' if closeopen == "open" else 'C')])
+    bus.close()
+    return "Garage Door : %s" % (closeopen)
+
+@app.route('/getStatus')
+def get_status():
+    """
+    Get the humidity, tempetature, led and garage door status by calling the arduino by I2C
+    Obtenez l'humidité, la température, l'état des leds et de la porte de garage en appelant l'arduino par I2C
+    """
+
+    bus = SMBus(1)
+    i2c_data1 = bus.read_i2c_block_data(ARDUINO1_I2C_ADDRESS,0)
+    humidity, temperature = struct.unpack("ff", struct.pack("B"*8,*i2c_data1[0:8]))
+    i2c_data2 = bus.read_i2c_block_data(ARDUINO2_I2C_ADDRESS,0)
+    bus.close()
+    response = {"humidity" : humidity,
+                "temperature" : temperature,
+                "leds" : i2c_data1[8:13],
+                "garageDoor" : i2c_data2[0]}
+    return jsonify(response)
 
 
-# Application Web - Web App
+# Web App - Application Web
 @app.route('/bootstrap4/<path:filepath>')
 def bootstrap(filepath):
     return send_from_directory('/home/pi/webapp/myHome/bootstrap4', filepath)
+
+@app.route('/Chart-lib/<path:filepath>')
+def chartLib(filepath):
+    return send_from_directory('/home/pi/webapp/myHome/Chart-lib', filepath)
 
 @app.route('/css/<path:filepath>')
 def style_css(filepath):

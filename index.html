@@ -14,9 +14,12 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 
+    <!-- ChartJS -->
+    <script src="Chart-lib/Chart.js"></script>
+
 </head>
 
-<body onload="checkTemperature()">
+<body onload="checkStatus()">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#lights">MyHome</a>
@@ -28,28 +31,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#lights">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#lights">Lights</a>
+                    <a class="nav-link" href="#ledCard">Lights</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#temperature">Temperature</a>
+                    <a class="nav-link" href="#temperatureCard">Temperature</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#garage">Garage</a>
+                    <a class="nav-link" href="#garageCard">Garage</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <!-- Lights -->
-    <div class="card mb-3" style="max-width: 20rem;">
+    <!-- Lights - Lumiere -->
+    <div class="card mb-3" style="max-width: 20rem;" id="ledCard">
         <div class="card-header" id="lights">
             Lights
         </div>
         <div class="card-body">
-            <div class="container">
+            <div class="container" id="ledContainer">
                 <div>
                     <label class="switch">
                         <input type="checkbox" id="kitchen" led="0" onclick="setLights(this)">
@@ -90,7 +93,7 @@
     </div>
 
     <!-- Temperature -->
-    <div class="card mb-3" style="max-width: 20rem;">
+    <div class="card mb-3" style="max-width: 20rem;" id="temperatureCard">
         <div class="card-header" id="temperatureCard">
             Temperature
         </div>
@@ -105,11 +108,14 @@
                     <div id="temperature"></div>
                 </label>
             </div>
+
+            <!-- Temperature Chart - Graphique de Temperature -->
+            <canvas id="temperatureChart"></canvas>
         </div>
     </div>
 
     <!-- Garage -->
-    <div class="card mb-3" style="max-width: 20rem;">
+    <div class="card mb-3" style="max-width: 20rem;" id="garageCard">
         <div class="card-header" id="garage">
             Garage door
         </div>
@@ -118,7 +124,7 @@
                 <div>
                     Close
                     <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" id="garageDoor" onclick="setGarageDoor(this)">
                             <span class="slider"></span>
                     </label>
                     Open
@@ -135,6 +141,9 @@
 
     <!-- Lights -->
     <script src="js/lights.js"></script>
+
+    <!-- Temperature Chart - Graphique de Temperature -->
+    <script src="js/temperature.js"></script>
 
 </body>
 
