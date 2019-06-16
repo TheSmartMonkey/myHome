@@ -2,6 +2,9 @@ from flask import Flask, send_from_directory, jsonify
 from smbus import SMBus
 from lcd import LCD
 import struct
+import socket
+from dataHistory import BackgroundHistory
+from my_ip import set_ip_on_lcd
 
 # Address of the 2 Arduino - Adresse des 2 Arduino
 ARDUINO1_I2C_ADDRESS = 18
@@ -9,6 +12,7 @@ ARDUINO2_I2C_ADDRESS = 19
 
 app = Flask(__name__)
 lcd = LCD()
+history = BackgroundHistory()
 
 @app.route('/')
 def index():
@@ -20,6 +24,18 @@ def index():
 def display_message(msg1,msg2):
     lcd.displayText(msg1,msg2)
     return msg1 + " " + msg2 + " message displayed"
+
+@app.route('/getIp')
+def display_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ipaddress = s.getsockname()[0]
+
+    lcd.displayText("My IP", ipaddress)
+    s.close()
+
+    print(ipaddress)
+    return ipaddress
 
 @app.route('/setLight/<led>/<onoff>')
 def set_light(led,onoff):
@@ -53,6 +69,10 @@ def get_status():
                 "garageDoor" : i2c_data2[0]}
     return jsonify(response)
 
+@app.route('/getHistory')
+def get_history():
+    return jsonify(history.get_elements())
+
 
 # Web App - Application Web
 @app.route('/bootstrap4/<path:filepath>')
@@ -72,4 +92,5 @@ def script_js(filepath):
     return send_from_directory('/home/pi/webapp/myHome/js', filepath)
 
 if __name__ == '__main__':
+    display_ip()
     app.run(host = '0.0.0.0', port = 8989)

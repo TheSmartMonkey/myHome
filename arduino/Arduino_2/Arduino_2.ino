@@ -24,8 +24,8 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 
 
 #define DOORSERVO 5     // PIN Where the door servo is connected
-#define OPEN_ANGLE 130  // set this value for the door to fully open
-#define CLOSED_ANGLE 30 // set this value for the door to fully close
+#define OPEN_ANGLE 30  // set this value for the door to fully open
+#define CLOSED_ANGLE 100 // set this value for the door to fully close
 
 
 #include <Servo.h>
@@ -66,6 +66,7 @@ void setup() {
   doorservo.attach(DOORSERVO); 
 
   lastActionTime = millis();
+  setDoor(false);
 }
 
 bool checkCard() {

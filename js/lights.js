@@ -51,7 +51,7 @@ function getStatus() {
             var ledContainer = document.getElementById("ledContainer").getElementsByTagName("div")
             for (var led = 0; led < ledContainer.length; led++) {
                 var element = ledContainer[led].getElementsByTagName("label")[0].getElementsByTagName("input")[0]
-                if (statusInfo.leds[led]) {
+                if (statusInfo.leds[parseInt(element.getAttribute("led"),10)]) {
                     element.checked = true
                 } else {
                     element.checked = false

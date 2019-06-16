@@ -47,7 +47,7 @@
     </nav>
 
     <!-- Lights - Lumiere -->
-    <div class="card mb-3" style="max-width: 20rem;" id="ledCard">
+    <div class="card md-3" style="max-width: 20rem;" id="ledCard">
         <div class="card-header" id="lights">
             Lights
         </div>
@@ -65,57 +65,73 @@
                         <input type="checkbox" id="leaving-room" led="1" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
-                    leaving Room
+                    Bedroom
                 </div>
                 <div>
                     <label class="switch">
                         <input type="checkbox" id="garage" led="2" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
-                    Garage
+                    leaving Room
                 </div>
                 <div>
                     <label class="switch">
                         <input type="checkbox" id="bedroom" led="3" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
-                    Bedroom
+                    Toilet
                 </div>
                 <div>
                     <label class="switch">
                         <input type="checkbox" id="toilet" led="4" onclick="setLights(this)">
                         <span class="slider"></span>
                     </label>
-                    Toilet
+                    Garage
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Temperature -->
-    <div class="card mb-3" style="max-width: 20rem;" id="temperatureCard">
+    <div class="card md-3" style="max-width: 20rem;" id="temperatureCard">
         <div class="card-header" id="temperatureCard">
             Temperature
         </div>
         <div class="card-body">
             <div class="container">
                 <label>
-                    humidity :
-                    <div id="humidity"></div>
-                </label><br>
-                <label>
-                    temperature :
+                    Temperature :
                     <div id="temperature"></div>
                 </label>
             </div>
 
-            <!-- Temperature Chart - Graphique de Temperature -->
+            <!-- Temperature Chart - Graphique de la Temperature -->
             <canvas id="temperatureChart"></canvas>
+
+        </div>
+    </div>
+
+    <!-- Humidity -->
+    <div class="card md-3" style="max-width: 20rem;" id="temperatureCard">
+        <div class="card-header" id="temperatureCard">
+            Humidity
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <label>
+                    Humidity :
+                    <div id="humidity"></div>
+                </label><br>
+            </div>
+
+            <!-- Humidity Chart - Graphique de l'Humidité -->
+            <canvas id="humidityChart"></canvas>
+
         </div>
     </div>
 
     <!-- Garage -->
-    <div class="card mb-3" style="max-width: 20rem;" id="garageCard">
+    <div class="card md-3" style="max-width: 20rem;" id="garageCard">
         <div class="card-header" id="garage">
             Garage door
         </div>
