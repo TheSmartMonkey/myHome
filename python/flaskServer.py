@@ -4,11 +4,13 @@ from lcd import LCD
 import struct
 import socket
 from dataHistory import BackgroundHistory
-from my_ip import set_ip_on_lcd
+
 
 # Address of the 2 Arduino - Adresse des 2 Arduino
 ARDUINO1_I2C_ADDRESS = 18
 ARDUINO2_I2C_ADDRESS = 19
+
+last_door_status = False
 
 app = Flask(__name__)
 lcd = LCD()
@@ -59,14 +61,30 @@ def get_status():
     """
 
     bus = SMBus(1)
+
     i2c_data1 = bus.read_i2c_block_data(ARDUINO1_I2C_ADDRESS,0)
     humidity, temperature = struct.unpack("ff", struct.pack("B"*8,*i2c_data1[0:8]))
+    leds = i2c_data1[8:13]
+
     i2c_data2 = bus.read_i2c_block_data(ARDUINO2_I2C_ADDRESS,0)
+    garage_door = i2c_data2[0]
+
     bus.close()
+
+    global last_door_status
+
+    # Display door status on LCD - Affiche le status de la porte sur le LCD
+    if garage_door == 1 and last_door_status == False:
+        display_message("Garage","Open")
+        last_door_status = True
+    elif garage_door == 0 and last_door_status == True:
+        display_message("Garage","Closed")
+        last_door_status = False
+
     response = {"humidity" : humidity,
                 "temperature" : temperature,
-                "leds" : i2c_data1[8:13],
-                "garageDoor" : i2c_data2[0]}
+                "leds" : leds,
+                "garageDoor" : garage_door}
     return jsonify(response)
 
 @app.route('/getHistory')

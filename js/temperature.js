@@ -88,5 +88,4 @@ function updateChart() {
     request.send()
 }
 
-updateChart()
 setInterval(updateChart,10000)

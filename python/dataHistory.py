@@ -47,8 +47,11 @@ class BackgroundHistory(object):
     def read(self):
         if exists("dataHistory.json"):
             for line in open("dataHistory.json","r"):
-                data = json.loads(line.strip())
-                self.elements.append(data)
+                try:
+                    data = json.loads(line.strip())
+                    self.elements.append(data)
+                except:
+                    pass
 
                 if len(self.elements) > self.number_elements:
                     self.elements.pop(0)
