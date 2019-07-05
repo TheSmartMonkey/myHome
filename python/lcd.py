@@ -9,21 +9,27 @@ from PIL import ImageFont
 # Create display object - Créé un objet display
 class LCD(object):
     def __init__(self):
-        # Create display object - Créé un objet display
-        self.lcd = Adafruit_SSD1306.SSD1306_128_32(rst = None)
+        try:
+            # Create display object - Créé un objet display
+            self.lcd = Adafruit_SSD1306.SSD1306_128_32(rst = None)
 
-        # init display - Initialise l'écran
-        self.lcd.begin()
+            # init display - Initialise l'écran
+            self.lcd.begin()
 
-        # Clear display - Efface l'écran
-        self.lcd.clear()
-        self.lcd.display()
+            # Clear display - Efface l'écran
+            self.lcd.clear()
+            self.lcd.display()
+        except:
+            self.lcd = None
 
     def displayText(self,line1,line2):
         """
         Create blank image for drawing with mode '1' for 1-bit color
         Créé un image avec un codage des couleurs sur 1 bit (noir et blanc)
         """
+
+        if self.lcd is None :
+            return
 
         width = self.lcd.width # Screen width - Largeur de l'écran
         height = self.lcd.height # Screen height - Hauteur de l'écran
