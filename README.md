@@ -2,6 +2,8 @@
 
 Supinfo school project on a domotique house
 
+More information on the project : [blog post](http://www.vandelle.com/blog/3dprinting/my-home/)
+
 ## Context
 
 In the context of the year 2018-2019 I chose to make a project that brought together 3D printing, cumputer science and electronics. The principle was to be able to have a complete project which includes several aspects of digital technology.
